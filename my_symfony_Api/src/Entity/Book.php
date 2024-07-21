@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\BookRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: BookRepository::class)]
 class Book
@@ -14,15 +15,23 @@ class Book
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     private ?string $title = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(max: 255)]
     private ?string $author = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank]
+    #[Assert\Range(min: 1000, max: 9999)]
     private ?int $publicationYear = null;
 
-    #[ORM\Column(length: 255)]
+    #[ORM\Column(length: 13, unique: true, nullable: false)]
+    #[Assert\NotBlank]
+    #[Assert\Isbn]
     private ?string $isbn = null;
 
     public function getId(): ?int
@@ -33,7 +42,6 @@ class Book
     public function setId(int $id): static
     {
         $this->id = $id;
-
         return $this;
     }
 
@@ -45,7 +53,6 @@ class Book
     public function setTitle(string $title): static
     {
         $this->title = $title;
-
         return $this;
     }
 
@@ -57,7 +64,6 @@ class Book
     public function setAuthor(string $author): static
     {
         $this->author = $author;
-
         return $this;
     }
 
@@ -69,7 +75,6 @@ class Book
     public function setPublicationYear(int $publicationYear): static
     {
         $this->publicationYear = $publicationYear;
-
         return $this;
     }
 
@@ -81,7 +86,7 @@ class Book
     public function setIsbn(string $isbn): static
     {
         $this->isbn = $isbn;
-
         return $this;
     }
 }
+
