@@ -124,4 +124,3 @@ class BookController extends AbstractController
         return $this->json(['message' => 'Livre supprimé'], 204);
     }
 }
-

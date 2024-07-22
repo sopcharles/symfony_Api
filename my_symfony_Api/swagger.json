@@ -1,0 +1,210 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "API Bibliothèque",
+        "description": "Une API pour gérer une bibliothèque",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/books": {
+            "get": {
+                "summary": "Récupérer la liste de tous les livres",
+                "operationId": "5f7fed59c61ad85c0a41860cb59cbc2c",
+                "responses": {
+                    "200": {
+                        "description": "Opération réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Book"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Créer un nouveau livre",
+                "operationId": "d4d97a0f5ba0347ca92cc20b6110cbd6",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "author": {
+                                        "type": "string"
+                                    },
+                                    "publicationYear": {
+                                        "type": "integer"
+                                    },
+                                    "isbn": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Livre créé",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Book"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/books/{id}": {
+            "get": {
+                "summary": "Récupérer les détails d'un livre spécifique",
+                "operationId": "2ec6dddd9389b94385269e62dea04969",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID du livre à récupérer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Opération réussie",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Book"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Livre non trouvé"
+                    }
+                }
+            },
+            "put": {
+                "summary": "Mettre à jour les informations d'un livre",
+                "operationId": "5f013fdbbfca50b967168c24defd236b",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID du livre à mettre à jour",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "title": {
+                                        "type": "string"
+                                    },
+                                    "author": {
+                                        "type": "string"
+                                    },
+                                    "publicationYear": {
+                                        "type": "integer"
+                                    },
+                                    "isbn": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Livre mis à jour",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Book"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Livre non trouvé"
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Supprimer un livre",
+                "operationId": "b126668cf14d776c67e39eebe4425f53",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "ID du livre à supprimer",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "Livre supprimé"
+                    },
+                    "404": {
+                        "description": "Livre non trouvé"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Book": {
+                "title": "Book",
+                "required": [
+                    "title",
+                    "author",
+                    "publicationYear",
+                    "isbn"
+                ],
+                "properties": {
+                    "id": {
+                        "type": "integer",
+                        "readOnly": true
+                    },
+                    "title": {
+                        "type": "string"
+                    },
+                    "author": {
+                        "type": "string"
+                    },
+                    "publicationYear": {
+                        "type": "integer"
+                    },
+                    "isbn": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    }
+}
